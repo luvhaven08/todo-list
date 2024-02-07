@@ -7,7 +7,7 @@ require 'db_conn.php';
 <head>
      <meta charset="UTF-8">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>TODO List</title>
+     <title> to-do List</title>
      <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -43,10 +43,10 @@ require 'db_conn.php';
                     <div class="todo-item">
                          <span id="<?php echo $todo['id']; ?>" class="remove-to-do">x</span>
                          <?php if ($todo['checked']) { ?>
-                              <input type="checkbox" class="check-box" checked />
+                              <input type="checkbox" data-todo-id="<?php echo $todo['id']; ?>" class="check-box" checked />
                               <h2 class="checked"><?php echo $todo['title'] ?></h2>
                          <?php } else { ?>
-                              <input type="checkbox" class="check-box" />
+                              <input type="checkbox" data-todo-id="<?php echo $todo['id']; ?>" class="check-box" />
                               <h2><?php echo $todo['title'] ?></h2>
                          <?php } ?>
                          <br>
@@ -55,6 +55,49 @@ require 'db_conn.php';
                <?php } ?>
           </div>
      </div>
+     <!-- <script>
+          src = "js/jquery-3.2.1.min.js"
+     </script> -->
+
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+     <script>
+          $(document).ready(function() {
+               $('.remove-to-do').click(function() {
+                    const id = $(this).attr('id');
+                    $.post("app/remove.php", {
+                              id: id
+                         },
+                         (data) => {
+                              if (data) {
+                                   $(this).parent().hide(600);
+                              }
+                         }
+                    );
+               });
+          });
+
+
+          $(".check-box"). click(function(e) {
+               const id = $(this).attr('data-todo-id');
+
+               $_POST('app/check.php', {
+                         id: id
+                    },
+                    (data) => {
+                         if (data != 'error') {
+                              const h2 = $(this).next();
+                              if (data === '1') {
+                                   h2.removeClass('checked');
+                              } else {
+                                   h2.addClass('checked');
+                              }
+                         }
+                    }
+               );
+          });
+     </script>
 </body>
 
 </html>
