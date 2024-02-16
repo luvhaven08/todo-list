@@ -3,11 +3,12 @@
 if(isset($_POST['id'])){
     require'../db_conn.php';
 
-    $id =$_POST['title'];
+    $id =$_POST['id'];
 
     if(empty($id)){
        echo 0;
     }else{
+      echo "Remove function invoked";
          $stmt = $conn->prepare("DELETE FROM todos WHERE id=?");
          $res =  $stmt->execute([$id]);
 

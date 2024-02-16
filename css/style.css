@@ -144,3 +144,8 @@ body {
   text-align: center;
   color: #cccc;
 }
+
+.login-section{
+  position: absolute;
+  right: 10px;
+}
