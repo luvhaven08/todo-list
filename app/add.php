@@ -6,19 +6,19 @@ if(isset($_POST['title'])){
     $title =$_POST['title'];
 
     if(empty($title)){
-        header("location: ../index.php?mess=error");
+        header("location: ../homePage.php?mess=error");
     }else{
         $stmt = $conn->prepare("INSERT INTO todos(title) VALUE(?)");
         $res =  $stmt->execute([$title]);
 
         if($res) {
-            header("location: ../index.php?mess=success");
+            header("location: ../homePage.php?mess=success");
         }else {
-            header("location: ../index.php");
+            header("location: ../homePage.php");
         }
         $conn = null;
         exit();
     }
 }else {
-    header("location: ../index.php?mess=error");
+    header("location: ../homePage.php?mess=error");
 }

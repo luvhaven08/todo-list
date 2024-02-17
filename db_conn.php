@@ -16,7 +16,7 @@ try {
   echo "Connection failed : " . $e->getMessage();
 }
 //user login
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
   $username = $_POST['username'];
   $password = $_POST['password'];
 
@@ -47,5 +47,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     header("Location: homePage.php");
     exit();
   }
+}
+if (isset($_POST['logout'])) {
+  // Redirect to logout.php to handle the logout process
+  header("Location: logout.php");
+  exit();
 }
 ?>
